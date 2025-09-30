@@ -5,7 +5,7 @@
   text-align: center;
   color: aliceblue;
   margin: 0;
-  padding: 8px;
+  padding: 10px;
 }
 
 form {
@@ -18,13 +18,14 @@ form {
 
 h1 {
   font-size: 2.3rem;
-  height: 48px;
-  padding-bottom: 0;
+  height: 44px;
+  padding: 4px 0 0;
 }
 
 .head-p {
-  font-size: 0.95em;
+  font-size: 1rem;
   font-weight: bold;
+  line-height: 1.5;
   padding: 0px 52px;
   height: 48px;
   text-align: center;
