@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  text-align: center;
+  color: aliceblue;
+  margin: 0;
+  padding: 8px;
+}
+
+form {
+  background-color: #3ea9f5;
+  width: 400px;
+  height: 480px;
+  margin: auto;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2.3rem;
+  height: 48px;
+  padding-bottom: 0;
+}
+
+.head-p {
+  font-size: 0.95em;
+  font-weight: bold;
+  padding: 0px 52px;
+  height: 48px;
+  text-align: center;
+}
+
+.input-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 0;
+}
+
+.input-text {
+  margin: 8px 4px;
+  text-align: left;
+  width: 160px;
+  height: 40px;
+  border-radius: 2px;
+  border: none;
+  padding: 16px;
+  font-size: 0.9rem;
+  color: black;
+}
+
+input[type="radio"] {
+  height: 10px;
+  vertical-align: middle;
+  position: relative;
+  top: -4px;
+}
+
+p {
+  font-size: 0.65rem;
+  padding: 0 0px 0px 16px;
+  text-align: left;
+}
+
+.label-btn,
+.check-div,
+button {
+  width: 348px;
+}
+
+.label-btn {
+  display: inline-block;
+  height: 52px;
+  padding: 8px 0 0 8px;
+  margin: 0 12px;
+  text-align: left;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.checkbox-btn {
+  width: 10px;
+  vertical-align: middle;
+}
+
+.check-div {
+  display: inline-block;
+  font-size: 0.72rem;
+  height: 28px;
+  padding: 0 0 0 8px;
+  margin: 0 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.invisible {
+  visibility: hidden;
+  padding: 0;
+}
+
+button {
+  background-color: #28d2d0;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
