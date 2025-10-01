@@ -24,7 +24,7 @@ h1 {
 
 .head-p {
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 500;
   line-height: 1.5;
   padding: 0px 52px;
   height: 48px;
@@ -63,6 +63,13 @@ p {
   text-align: left;
 }
 
+.radio-div{
+  display: flex;
+  flex-direction: column;
+  height: 144px;
+  justify-content: space-between;
+}
+
 .label-btn,
 .check-div,
 button {
@@ -73,7 +80,7 @@ button {
   display: inline-block;
   height: 52px;
   padding: 8px 0 0 8px;
-  margin: 0 12px;
+  margin: 0 8px 0 16px;
   text-align: left;
   border: 1px solid #ccc;
   cursor: pointer;
@@ -104,6 +111,6 @@ button {
   background-color: #28d2d0;
   height: 40px;
   border: none;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: 2px;
+  font-weight: 600;
 }
