@@ -14,41 +14,26 @@ p.textContent = "We always keep your name and email address private.";
 const inputDiv = document.createElement("div");
 inputDiv.className = "input-div";
 
-const firstName = document.createElement("input");
-firstName.className = "input-text";
-firstName.type = "text";
-firstName.placeholder = "First name";
-firstName.required = true;
+function createInput(
+  type,
+  placeholder,
+  required = true,
+  className = "input-text"
+) {
+  const input = document.createElement("input");
+  input.type = type;
+  input.placeholder = placeholder;
+  input.className = className;
+  input.required = required;
+  return input;
+}
 
-const lastName = document.createElement("input");
-lastName.className = "input-text";
-lastName.type = "text";
-lastName.placeholder = "Last name";
-lastName.required = true;
-
-const displayName = document.createElement("input");
-displayName.className = "input-text";
-displayName.type = "text";
-displayName.placeholder = "Display name";
-displayName.required = true;
-
-const emailAddress = document.createElement("input");
-emailAddress.className = "input-text";
-emailAddress.type = "email";
-emailAddress.placeholder = "Email Address";
-emailAddress.required = true;
-
-const password = document.createElement("input");
-password.className = "input-text";
-password.type = "password";
-password.placeholder = "Password";
-password.required = true;
-
-const passwordConfirmation = document.createElement("input");
-passwordConfirmation.className = "input-text";
-passwordConfirmation.type = "password";
-passwordConfirmation.placeholder = "Password Confirmation";
-passwordConfirmation.required = true;
+const firstName = createInput("text", "First name");
+const lastName = createInput("text", "Last name");
+const displayName = createInput("text", "Display name");
+const emailAddress = createInput("email", "Email Address");
+const password = createInput("password", "Password");
+const passwordConfirmation = createInput("password", "Password Confirmation");
 
 const radioDiv = document.createElement("div");
 radioDiv.className = "radio-div";
@@ -104,35 +89,19 @@ const button = document.createElement("button");
 button.type = "submit";
 button.textContent = "Create account";
 
-////////////////////////////////////////////////////////////
-document.body.appendChild(main);
-main.appendChild(form);
-form.appendChild(h1);
-form.appendChild(p);
-
-form.appendChild(inputDiv);
-inputDiv.appendChild(firstName)
-inputDiv.appendChild(lastName)
-inputDiv.appendChild(displayName)
-inputDiv.appendChild(emailAddress)
-inputDiv.appendChild(password)
-inputDiv.appendChild(passwordConfirmation)
-
-
-form.appendChild(radioDiv);
-
-radioDiv.appendChild(buyerLabel);
-buyerLabel.appendChild(buyerInput);
-buyerLabel.appendChild(buyerText);
-buyerLabel.appendChild(buyerSpan);
-
-radioDiv.appendChild(sellerLabel);
-sellerLabel.appendChild(sellerInput);
-sellerLabel.appendChild(sellerText);
-sellerLabel.appendChild(sellerSpan);
-
-form.appendChild(checkboxLabel);
-checkboxLabel.appendChild(checkbox);
-checkboxLabel.appendChild(checkboxText);
-
-form.appendChild(button);
+document.body.append(main);
+main.append(form);
+form.append(h1, p, inputDiv, radioDiv, checkboxLabel, button);
+inputDiv.append(
+  firstName,
+  lastName,
+  displayName,
+  emailAddress,
+  password,
+  passwordConfirmation
+);
+radioDiv.append(buyerLabel);
+buyerLabel.append(buyerInput, buyerText, buyerSpan);
+radioDiv.append(sellerLabel);
+sellerLabel.append(sellerInput, sellerText, sellerSpan);
+checkboxLabel.append(checkbox, checkboxText);
