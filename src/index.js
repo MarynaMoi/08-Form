@@ -1,7 +1,43 @@
 "use strict";
+import { inputs, radioInputs, checkboxInputs} from "../constants/index.js";
+const [buyer, seller] = radioInputs;
+const [checkboxMarketing] = checkboxInputs;
+
+function createInput(props) {
+  const input = document.createElement("input");
+  for (const key in props) {
+    input[key] = props[key];
+  }
+  return input;
+}
+
+function createRadioOption(el, text, desc) {
+  const label = document.createElement("label");
+  label.className = "label-radio-area";
+  label.htmlFor = el.id;
+  const btn = createInput(el);
+  const textRadioBtn = document.createElement("span");
+  textRadioBtn.textContent = text;
+  const textDescription = document.createElement("span");
+  textDescription.className = "radio-description";
+  textDescription.textContent = desc;
+  label.append(btn, textRadioBtn, textDescription);
+  return label;
+}
+
+function createCheckbox(el, text) {
+  const checkboxLabel = document.createElement("label");
+  checkboxLabel.className = "check-div";
+  checkboxLabel.htmlFor = el.id;
+  const checkbox = createInput(el);
+  const checkboxText = document.createElement("span");
+  checkboxText.textContent = text;
+  checkboxText.className = "check-div check-span";
+  checkboxLabel.append(checkbox, checkboxText);
+  return checkboxLabel;
+}
 
 const main = document.createElement("main");
-
 const form = document.createElement("form");
 
 const h1 = document.createElement("h1");
@@ -12,77 +48,29 @@ p.className = "head-p";
 p.textContent = "We always keep your name and email address private.";
 
 const inputDiv = document.createElement("div");
-inputDiv.className = "input-div";
-
-function createInput(
-  type,
-  placeholder,
-  required = true,
-  className = "input-text"
-) {
-  const input = document.createElement("input");
-  input.type = type;
-  input.placeholder = placeholder;
-  input.className = className;
-  input.required = required;
-  return input;
-}
-
-const firstName = createInput("text", "First name");
-const lastName = createInput("text", "Last name");
-const displayName = createInput("text", "Display name");
-const emailAddress = createInput("email", "Email Address");
-const password = createInput("password", "Password");
-const passwordConfirmation = createInput("password", "Password Confirmation");
+inputDiv.className = "form-inputs-div";
 
 const radioDiv = document.createElement("div");
-radioDiv.className = "radio-div";
+radioDiv.className = "radios-div";
 
-const buyerLabel = document.createElement("label");
-buyerLabel.className = "label-btn";
-buyerLabel.htmlFor = "buyer";
-
-const buyerInput = document.createElement("input");
-buyerInput.type = "radio";
-buyerInput.name = "buyer-or-seller";
-buyerInput.id = "buyer";
-buyerInput.required = true;
-const buyerText = document.createTextNode(" Join As a Buyer ");
-
-const buyerSpan = document.createElement("span");
-buyerSpan.textContent =
-  "I am looking for a Name, Logo or Tagline for my business, brand or product.";
-
-const sellerLabel = document.createElement("label");
-sellerLabel.className = "label-btn";
-sellerLabel.htmlFor = "seller";
-
-const sellerInput = document.createElement("input");
-sellerInput.type = "radio";
-sellerInput.name = "buyer-or-seller";
-sellerInput.id = "seller";
-sellerInput.required = true;
-
-const sellerText = document.createTextNode(
-  " Join As a Creative or Marketplace Seller "
+radioDiv.append(
+  createRadioOption(
+    buyer,
+    "Join As a Buyer ",
+    "I am looking for a Name, Logo or Tagline for my business, brand or product."
+  )
+);
+radioDiv.append(
+  createRadioOption(
+    seller,
+    "Join As a Creative or Marketplace Seller ",
+    "I plan to submit name ideas, Logo design or sell names in Domain Marketplace."
+  )
 );
 
-const sellerSpan = document.createElement("span");
-sellerSpan.textContent =
-  "I plan to submit name ideas, Logo design or sell names in Domain Marketplace.";
-
-const checkboxLabel = document.createElement("label");
-checkboxLabel.className = "check-div";
-checkboxLabel.htmlFor = "checkbox";
-
-const checkbox = document.createElement("input");
-checkbox.type = "checkbox";
-checkbox.id = "checkbox";
-checkbox.className = "checkbox-btn";
-checkbox.required = true;
-
-const checkboxText = document.createTextNode(
-  " Allow Squadhelp to send marketing/promotional offers from time to time"
+const checkboxLabel = createCheckbox(
+  checkboxMarketing,
+  "Allow Squadhelp to send marketing/promotional offers from time to time"
 );
 
 const button = document.createElement("button");
@@ -92,16 +80,29 @@ button.textContent = "Create account";
 document.body.append(main);
 main.append(form);
 form.append(h1, p, inputDiv, radioDiv, checkboxLabel, button);
-inputDiv.append(
-  firstName,
-  lastName,
-  displayName,
-  emailAddress,
-  password,
-  passwordConfirmation
-);
-radioDiv.append(buyerLabel);
-buyerLabel.append(buyerInput, buyerText, buyerSpan);
-radioDiv.append(sellerLabel);
-sellerLabel.append(sellerInput, sellerText, sellerSpan);
-checkboxLabel.append(checkbox, checkboxText);
+inputs.forEach((cfg) => {
+  inputDiv.append(createInput(cfg));
+});
+
+
+
+class Person {
+  constructor(firstName, lastName, displayName, email) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.displayName = displayName;
+    this.email = email;
+  }
+}
+
+button.addEventListener("click", function (e) {
+
+  const firstName = document.getElementById("firstName").value.trim();
+  const lastName = document.getElementById("lastName").value.trim();
+  const displayName = document.getElementById("displayName").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  const person = new Person(firstName, lastName, displayName, email);
+  localStorage.setItem(lastName, JSON.stringify(person));
+  form.reset();
+});
