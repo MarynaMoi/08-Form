@@ -83,7 +83,7 @@ export const formContent = {
 };
 
 export const errorContent = {
-  errorMesConteiner: { id: "error" },
+  errorMesConteiner: { className: "errorMesContainer" },
   emailError: {
     id: "email-error",
     className: "error-message",
