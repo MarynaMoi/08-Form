@@ -83,15 +83,17 @@ export const formContent = {
 };
 
 export const errorContent = {
-  errorMesConteiner: { className: "errorMesContainer" },
   emailError: {
     id: "email-error",
-    className: "error-message",
     textContent: "Invalid email address.",
+    
   },
   passwordConfirmationError: {
     id: "password-error",
-    className: "error-message",
     textContent: "Invalid password confirmation",
+  },
+    emptyInputError: {
+    id: "empty-error",
+    textContent: "Please fill in all fields.",
   },
 };

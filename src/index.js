@@ -55,7 +55,6 @@ const inputDiv = createEl("div", formContent.formInputsDiv);
 const radioDiv = createEl("div", formContent.formRadioDiv);
 const checkboxLabel = createCheckbox(checkboxMarketing);
 const button = createEl("button", buttonContent);
-const errorContainer = createEl("div", errorContent.errorMesConteiner);
 
 document.body.append(main);
 main.append(form);
@@ -65,11 +64,23 @@ radioDiv.append(createRadioOption(seller));
 inputs.forEach((cfg) => {
   inputDiv.append(createEl("input", cfg));
 });
-form.append(errorContainer);
+/* ------------------------Hidden fields-------------------------*/
+const emailErrorDiv = createEl("div", errorContent.emailError);
+form.append(emailErrorDiv);
+emailErrorDiv.hidden = true;
+const emptyErrorDiv = createEl("div", errorContent.emptyInputError);
+form.append(emptyErrorDiv);
+emptyErrorDiv.hidden = true;
+const passwordErrorDiv = createEl(
+  "div",
+  errorContent.passwordConfirmationError
+);
+form.append(passwordErrorDiv);
+passwordErrorDiv.hidden = true;
 
 /* ------------------------Local Storage-------------------------*/
 const propsArray = Array.from(
-  document.querySelectorAll(".form-inputs-div>input")
+  document.querySelectorAll(".form-inputs-div >input")
 );
 class Person {
   constructor(...args) {
@@ -92,54 +103,46 @@ function saveToLocalStorage() {
 }
 /* ----------------------------Validation--------------------------*/
 
-function addError(el) {
-  if (document.getElementById(el.id)) return;
-  errorContainer.append(createEl("div", el));
-}
-
-function removeError(id) {
-  const el = document.getElementById(id);
-  if (el) {
-    el.remove();
-  }
-}
-
-function blinkError(el) {
-  el.classList.add("blink");
-  setTimeout(() => el.classList.remove("blink"), 150);
-}
-
 function validatePassword() {
   const passwordConfirmation = document.getElementById("passwordConfirmation");
   const password = document.getElementById("password");
-  if (password.value.trim() === "") {
-    addError(errorContent.passwordConfirmationError);
-    return;
-  } else {
-    removeError(errorContent.passwordConfirmationError.id);
-  }
-
   password.value.trim() === passwordConfirmation.value.trim()
-    ? removeError(errorContent.passwordConfirmationError.id)
-    : addError(errorContent.passwordConfirmationError);
+    ? (passwordErrorDiv.hidden = true)
+    : (passwordErrorDiv.hidden = false);
 }
+
 function validateEmail() {
   const email = document.getElementById("email");
   const pattern = /^\w+\.?\w+@[a-z]{3,}\.[a-z]{2,}$/i;
   pattern.test(email.value.trim())
-    ? removeError(errorContent.emailError.id)
-    : addError(errorContent.emailError);
+    ? (emailErrorDiv.hidden = true)
+    : (emailErrorDiv.hidden = false);
 }
-function submitHandler(e) {
-  validateEmail();
-  validatePassword();
-  if (errorContainer.children.length > 0) {
-    e.preventDefault();
-    Array.from(errorContainer.children).forEach(blinkError);
-    return;
+
+function checkEmptyInputs() {
+  const isFill = propsArray.every((input) => input.value.trim() !== "");
+  isFill ? (emptyErrorDiv.hidden = true) : (emptyErrorDiv.hidden = false);
+  return isFill;
+}
+
+function permissionToSubmit() {
+  if (emailErrorDiv.hidden && 
+    passwordErrorDiv.hidden && 
+    checkEmptyInputs()) {
+    return true;
   }
-  saveToLocalStorage();
+  return false;
 }
-email.addEventListener("blur", validateEmail);
-passwordConfirmation.addEventListener("blur", validatePassword);
+
+function submitHandler(e) {
+  e.preventDefault();
+  if (permissionToSubmit()) {
+    saveToLocalStorage();
+    form.reset();
+  }
+}
+
+email.addEventListener("change", validateEmail);
+passwordConfirmation.addEventListener("change", validatePassword);
+password.addEventListener("change", validatePassword);
 form.addEventListener("submit", submitHandler);
