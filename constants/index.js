@@ -83,17 +83,17 @@ export const formContent = {
 };
 
 export const errorContent = {
-  emailError: {
-    id: "email-error",
+  email: {
+    id: "emailError",
     textContent: "Invalid email address.",
     
   },
-  passwordConfirmationError: {
-    id: "password-error",
+  passwordConfirmation: {
+    id: "passwordError",
     textContent: "Invalid password confirmation",
   },
     emptyInputError: {
-    id: "empty-error",
+    id: "emptyError",
     textContent: "Please fill in all fields.",
   },
 };

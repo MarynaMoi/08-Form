@@ -39,6 +39,12 @@ h1 {
   padding: 0;
 }
 
+.input-container {
+  margin: 0;
+  padding: 0;
+  height: 56px;
+}
+
 .form-input {
   margin: 8px 4px;
   text-align: left;
@@ -128,10 +134,8 @@ button:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-#email-error {
-  position: absolute;
-  top: 196px;
-  left: 60%;
+#emailError {
+  transform: translateY(-8px);
   background: white;
   color: red;
   border: 2px solid red;
@@ -141,10 +145,8 @@ button:active {
   width: fit-content;
 }
 
-#password-error {
-  position: absolute;
-  top: 250px;
-  left: 60%;
+#passwordError {
+  transform: translateY(-8px);
   background: white;
   color: red;
   border: 2px solid red;
@@ -153,7 +155,7 @@ button:active {
   font-size: 8px;
   width: fit-content;
 }
-#empty-error {
+#emptyError {
   position: absolute;
   top: 80px;
   left: 40%;

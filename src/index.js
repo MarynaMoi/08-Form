@@ -45,6 +45,18 @@ function createCheckbox(el) {
   checkboxLabel.append(checkbox, checkboxText);
   return checkboxLabel;
 }
+function createErrorDiv(cfg) {
+  const container = document.createElement("div");
+  container.className = "input-container";
+  const input = createEl("input", cfg);
+  container.append(input);
+  if (errorContent[cfg.id]) {
+    const errorDiv = createEl("div", errorContent[cfg.id]);
+    errorDiv.hidden = true;
+    container.append(errorDiv);
+  }
+  inputDiv.append(container);
+}
 
 /* -------------------Create Element and Append Element--------------------*/
 const main = document.createElement("main");
@@ -61,26 +73,18 @@ main.append(form);
 form.append(h1, p, inputDiv, radioDiv, checkboxLabel, button);
 radioDiv.append(createRadioOption(buyer));
 radioDiv.append(createRadioOption(seller));
-inputs.forEach((cfg) => {
-  inputDiv.append(createEl("input", cfg));
-});
+inputs.forEach(createErrorDiv);
 /* ------------------------Hidden fields-------------------------*/
-const emailErrorDiv = createEl("div", errorContent.emailError);
-form.append(emailErrorDiv);
-emailErrorDiv.hidden = true;
+
 const emptyErrorDiv = createEl("div", errorContent.emptyInputError);
 form.append(emptyErrorDiv);
 emptyErrorDiv.hidden = true;
-const passwordErrorDiv = createEl(
-  "div",
-  errorContent.passwordConfirmationError
-);
-form.append(passwordErrorDiv);
-passwordErrorDiv.hidden = true;
+const emailErrorDiv = document.getElementById("emailError");
+const passwordErrorDiv = document.getElementById("passwordError");
 
 /* ------------------------Local Storage-------------------------*/
 const propsArray = Array.from(
-  document.querySelectorAll(".form-inputs-div >input")
+  document.querySelectorAll(".form-inputs-div input")
 );
 class Person {
   constructor(...args) {
@@ -126,9 +130,7 @@ function checkEmptyInputs() {
 }
 
 function permissionToSubmit() {
-  if (emailErrorDiv.hidden && 
-    passwordErrorDiv.hidden && 
-    checkEmptyInputs()) {
+  if (emailErrorDiv.hidden && passwordErrorDiv.hidden && checkEmptyInputs()) {
     return true;
   }
   return false;
