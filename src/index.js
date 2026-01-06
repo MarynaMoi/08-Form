@@ -45,7 +45,7 @@ function createCheckbox(el) {
   checkboxLabel.append(checkbox, checkboxText);
   return checkboxLabel;
 }
-function createErrorDiv(cfg) {
+function createDivForInput(cfg) {
   const container = document.createElement("div");
   container.className = "input-container";
   const input = createEl("input", cfg);
@@ -73,7 +73,7 @@ main.append(form);
 form.append(h1, p, inputDiv, radioDiv, checkboxLabel, button);
 radioDiv.append(createRadioOption(buyer));
 radioDiv.append(createRadioOption(seller));
-inputs.forEach(createErrorDiv);
+inputs.forEach(createDivForInput);
 /* ------------------------Hidden fields-------------------------*/
 
 const emptyErrorDiv = createEl("div", errorContent.emptyInputError);
@@ -123,14 +123,9 @@ function validateEmail() {
     : (emailErrorDiv.hidden = false);
 }
 
-function checkEmptyInputs() {
-  const isFill = propsArray.every((input) => input.value.trim() !== "");
-  isFill ? (emptyErrorDiv.hidden = true) : (emptyErrorDiv.hidden = false);
-  return isFill;
-}
 
 function permissionToSubmit() {
-  if (emailErrorDiv.hidden && passwordErrorDiv.hidden && checkEmptyInputs()) {
+  if (emailErrorDiv.hidden && passwordErrorDiv.hidden) {
     return true;
   }
   return false;

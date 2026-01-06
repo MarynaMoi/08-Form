@@ -23,6 +23,7 @@ export const inputs = [
     className: "form-input",
     name: "email",
     id: "email",
+    required: true,
   },
   {
     type: "password",
@@ -30,6 +31,8 @@ export const inputs = [
     className: "form-input",
     name: "password",
     id: "password",
+    required: true,
+
   },
   {
     type: "password",
