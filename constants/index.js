@@ -23,7 +23,7 @@ export const inputs = [
     className: "form-input",
     name: "email",
     id: "email",
-    required: true,
+  
   },
   {
     type: "password",
@@ -40,6 +40,7 @@ export const inputs = [
     className: "form-input",
     id: "passwordConfirmation",
     name: "password",
+    required: true,
   },
 ];
 
@@ -86,17 +87,9 @@ export const formContent = {
 };
 
 export const errorContent = {
-  email: {
-    id: "emailError",
-    textContent: "Invalid email address.",
-    
-  },
+
   passwordConfirmation: {
     id: "passwordError",
     textContent: "Invalid password confirmation",
-  },
-    emptyInputError: {
-    id: "emptyError",
-    textContent: "Please fill in all fields.",
   },
 };

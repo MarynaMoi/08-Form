@@ -45,7 +45,7 @@ function createCheckbox(el) {
   checkboxLabel.append(checkbox, checkboxText);
   return checkboxLabel;
 }
-function createDivForInput(cfg) {
+function createDivForInputAndError(cfg) {
   const container = document.createElement("div");
   container.className = "input-container";
   const input = createEl("input", cfg);
@@ -73,38 +73,11 @@ main.append(form);
 form.append(h1, p, inputDiv, radioDiv, checkboxLabel, button);
 radioDiv.append(createRadioOption(buyer));
 radioDiv.append(createRadioOption(seller));
-inputs.forEach(createDivForInput);
+inputs.forEach(createDivForInputAndError);
 /* ------------------------Hidden fields-------------------------*/
 
-const emptyErrorDiv = createEl("div", errorContent.emptyInputError);
-form.append(emptyErrorDiv);
-emptyErrorDiv.hidden = true;
-const emailErrorDiv = document.getElementById("emailError");
 const passwordErrorDiv = document.getElementById("passwordError");
 
-/* ------------------------Local Storage-------------------------*/
-const propsArray = Array.from(
-  document.querySelectorAll(".form-inputs-div input")
-);
-class Person {
-  constructor(...args) {
-    args.forEach(({ name, value }) => (this[name] = value));
-  }
-}
-
-function saveToLocalStorage() {
-  const person = new Person(...propsArray);
-  localStorage.setItem(
-    `${person.lastName}`,
-    JSON.stringify(
-      person,
-      (key, value) => {
-        return key === "email" || key === "password" ? undefined : value;
-      },
-      2
-    )
-  );
-}
 /* ----------------------------Validation--------------------------*/
 
 function validatePassword() {
@@ -115,31 +88,11 @@ function validatePassword() {
     : (passwordErrorDiv.hidden = false);
 }
 
-function validateEmail() {
-  const email = document.getElementById("email");
-  const pattern = /^\w+\.?\w+@[a-z]{3,}\.[a-z]{2,}$/i;
-  pattern.test(email.value.trim())
-    ? (emailErrorDiv.hidden = true)
-    : (emailErrorDiv.hidden = false);
-}
-
-
-function permissionToSubmit() {
-  if (emailErrorDiv.hidden && passwordErrorDiv.hidden) {
-    return true;
-  }
-  return false;
-}
-
 function submitHandler(e) {
-  e.preventDefault();
-  if (permissionToSubmit()) {
-    saveToLocalStorage();
-    form.reset();
+  if (!passwordErrorDiv.hidden) {
+    e.preventDefault();
   }
 }
 
-email.addEventListener("change", validateEmail);
 passwordConfirmation.addEventListener("change", validatePassword);
-password.addEventListener("change", validatePassword);
 form.addEventListener("submit", submitHandler);
