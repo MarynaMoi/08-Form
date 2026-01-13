@@ -83,16 +83,12 @@ const passwordErrorDiv = document.getElementById("passwordError");
 function validatePassword() {
   const passwordConfirmation = document.getElementById("passwordConfirmation");
   const password = document.getElementById("password");
+  const btn = document.querySelector('button')
   password.value.trim() === passwordConfirmation.value.trim()
-    ? (passwordErrorDiv.hidden = true)
-    : (passwordErrorDiv.hidden = false);
+  ? (passwordErrorDiv.hidden = true, btn.disabled = false)
+  : (passwordErrorDiv.hidden = false, btn.disabled = true);
 }
 
-function submitHandler(e) {
-  if (!passwordErrorDiv.hidden) {
-    e.preventDefault();
-  }
-}
 
 passwordConfirmation.addEventListener("change", validatePassword);
-form.addEventListener("submit", submitHandler);
+

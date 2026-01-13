@@ -74,6 +74,7 @@ export const checkboxInputs = [
 export const buttonContent = {
   type: "submit",
   textContent: "Create Account",
+  disabled: true,
 };
 
 export const formContent = {
